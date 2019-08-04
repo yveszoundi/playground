@@ -1,0 +1,7 @@
+#!/bin/sh
+urls="https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts https://raw.githubusercontent.com/yveszoundi/playground/master/hosts"
+
+for url in $urls
+do
+curl -s "$url" >> hosts
+done

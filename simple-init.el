@@ -1,5 +1,77 @@
 ;; -*- lexical-binding: t -*-
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ '(me-org-directory "~/.emacs.d/org-mode" t)
+ '(eshell-directory-name "~/.emacs.d/etc/eshell/")
+ '(indent-tabs-mode nil)
+ '(inhibit-startup-screen t)
+ '(linum-format
+   (lambda
+     (line)
+     (let
+         ((w
+           (length
+            (number-to-string
+             (count-lines
+              (point-min)
+              (point-max))))))
+       (propertize
+        (format
+         (format " %%%dd " w)
+         line)
+        'face 'linum))))
+ '(menu-bar-mode nil)
+ '(org-agenda-files nil)
+ '(org-fontify-whole-heading-line t)
+ '(outline-minor-mode-prefix "h")
+ '(package-archives
+   '(("gnu" . "http://elpa.gnu.org/packages/")
+     ("orgmode" . "http://orgmode.org/elpa/")
+     ("melpa" . "http://melpa.milkbox.net/packages/")))
+ '(package-check-signature nil)
+ '(package-selected-packages
+   '(avy))
+ '(recentf-exclude '("/tmp" "/ssh:" "\\ido.last" "recentf"))
+ '(recentf-keep '(file-remote-p file-readable-p))
+ '(recentf-max-menu-items 100)
+ '(recentf-max-saved-items 100)
+ '(recentf-mode t)
+ '(recentf-save-file "~/.emacs.d/etc/recentf")
+ '(safe-local-variable-values '((eval progn (outline-minor-mode 1) (outline-hide-body))))
+ '(save-place-file "~/.emacs.d/etc/saved-places")
+ '(save-place-mode t)
+ '(semanticdb-default-save-directory "~/.emacs.d/etc/semanticdb/")
+ '(send-mail-function 'smtpmail-send-it)
+ '(show-paren-mode t)
+ '(tab-width 4)
+ '(tls-program '("gnutls-cli --insecure -p %p %h"))
+ '(transient-mark-mode t)
+ '(undo-limit 20000000)
+ '(undo-strong-limit 40000000) '(vc-annotate-background "#2B2B2B")
+ '(vc-annotate-color-map
+   '((20 . "#BC8383")
+     (40 . "#CC9393")
+     (60 . "#DFAF8F")
+     (80 . "#D0BF8F")
+     (100 . "#E0CF9F")
+     (120 . "#F0DFAF")
+     (140 . "#5F7F5F")
+     (160 . "#7F9F7F")
+     (180 . "#8FB28F")
+     (200 . "#9FC59F")
+     (220 . "#AFD8AF")
+     (240 . "#BFEBBF")
+     (260 . "#93E0E3")
+     (280 . "#6CA0A3")
+     (300 . "#7CB8BB")
+     (320 . "#8CD0D3")
+     (340 . "#94BFF3")
+     (360 . "#DC8CC3")))
+ '(vc-annotate-very-old-color "#DC8CC3")
+ '(window-divider-default-right-width 1)
+ '(window-divider-mode nil))
+
 (require 'cl-lib)
 
 (setq warning-minimum-level :error)
@@ -327,12 +399,12 @@ With negative N, comment out original line and use the absolute value."
 
 ;;;; org-mode
 (with-eval-after-load 'org
-  (setq org-directory             "ME_REPLACE"
+  (setq org-directory             me-org-directory
         org-hide-leading-stars    nil
         org-cycle-separator-lines 0)
 
   (setq org-archive-location      (me/make-path org-directory "archives.org")
-        org-agenda-files          (directory-files me-org-directory t "\\.org$")
+        org-agenda-files          (directory-files org-directory t "\\.org$")
         org-export-html-postamble nil
         org-me-notes-file        (me/make-path org-directory "tasks.org"))
 

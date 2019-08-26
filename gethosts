@@ -1,7 +1,11 @@
 #!/bin/sh
-urls="https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts https://raw.githubusercontent.com/yveszoundi/playground/master/hosts"
+urls="https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts https://raw.githubusercontent.com/yveszoundi/playground/develop/hosts"
+
+echo > hosts
 
 for url in $urls
 do
 curl -s "$url" >> hosts
 done
+
+cat hosts >> /etc/hosts

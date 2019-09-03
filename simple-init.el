@@ -31,7 +31,7 @@
      ("melpa" . "http://melpa.milkbox.net/packages/")))
  '(package-check-signature nil)
  '(package-selected-packages
-   '(avy))
+   '(avy magit htmlize))
  '(recentf-exclude '("/tmp" "/ssh:" "\\ido.last" "recentf"))
  '(recentf-keep '(file-remote-p file-readable-p))
  '(recentf-max-menu-items 100)
@@ -335,9 +335,9 @@ With negative N, comment out original line and use the absolute value."
   "Mark symbol at point."
   (interactive)
   (me/do-with-symbol-at-point-bounds #'(lambda (start end)
-                                          (goto-char start)
-                                          (set-mark-command nil)
-                                          (goto-char end))))
+                                         (goto-char start)
+                                         (set-mark-command nil)
+                                         (goto-char end))))
 
 (global-set-key (kbd "C-h C-w") #'me/cut-symbol-at-point)
 (global-set-key (kbd "C-h M-w") #'me/copy-symbol-at-point)
@@ -465,6 +465,14 @@ With negative N, comment out original line and use the absolute value."
 ;;;; movement
 (global-set-key (kbd "M-p")   (kbd "C-u 15 C-p"))
 (global-set-key (kbd "M-n")   (kbd "C-u 15 C-n"))
+
+;;;; magit
+(eval-after-load 'magit-status
+  (progn
+    (require 'magit-status)
+    (require 'magit-log)
+    (global-set-key (kbd "C-c gv") 'magit-status)
+    '(global-set-key (kbd "C-c gl") 'magit-log)))
 
 ;;;; others
 (add-to-list 'auto-mode-alist '("\\.env\\'" . sh-mode))
